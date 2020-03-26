@@ -3,28 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TopGunLab_Practice3.Models;
 
 namespace TopGunLab_Practice3.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+
+        }
         public ActionResult Index()
         {
-            return View();
+            if (Session["products"]==null)
+            {
+                Session["products"] = new List<Product> {
+                    new Product (){Name = "Milk", Quantity = "2 l"},
+                    new Product (){Name = "Tomatoes", Quantity = "5 kg"},
+                    new Product (){Name = "Grechka", Quantity = "400 g"}
+                    };
+            }
+            return View(Session["products"]);
         }
 
-        public ActionResult About()
+        public ActionResult Details(int id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            int index = id;
+            Product product = GetById(index);
+            return View(product);
         }
 
-        public ActionResult Contact()
+        private void Add(Product product)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            List<Product> products = (List<Product>)Session["products"];
+            products.Add(product);
+            Session["products"] = products;
+        }
+        private Product GetById(int id)
+        {
+            List<Product> products = (List<Product>)Session["products"];
+            Product product = products[id];
+            return product;
         }
     }
 }
