@@ -43,6 +43,7 @@ namespace TopGunLab_Practice3.Controllers
             Session["products"] = products;
             return RedirectToAction("Index");
         }
+
         private Product GetById(int id)
         {
             List<Product> products = Session["products"] as List<Product>;

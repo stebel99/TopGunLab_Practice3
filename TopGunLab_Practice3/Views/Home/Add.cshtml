@@ -17,6 +17,15 @@
                 <th scope="row" class="bg-success"><p>Quantity</p></th>
                 <td><input type="text" name="Quantity" /> </td>
             </tr>
+            <tr>
+                <th scope="row" class="bg-success"><p>Type</p></th>
+                <td>
+                    @Html.EnumDropDownListFor(
+                x => x.Type,
+                "Select My Type",
+                new { @class = "form-control" })
+                            </td>
+            </tr>
         </table>
         <input class="btn btn-success" type="submit" value="Add" />
     }

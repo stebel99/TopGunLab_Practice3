@@ -3,11 +3,16 @@
     public class Product
     {
         public string Name { get; set; }
-        public string Quantity { get; set; }
-        public Product()
-        {
-            Name = "";
-            Quantity = "";
-        }
+        public double Quantity { get; set; }
+        public Type Type { get; set; }
+    }
+    public enum Type
+    {
+        Pound,
+        Gram,
+        Kilogram,
+        Ton,
+        Litre,
+        Pieces
     }
 }
