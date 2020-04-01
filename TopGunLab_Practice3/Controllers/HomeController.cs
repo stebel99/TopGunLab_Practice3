@@ -15,13 +15,9 @@ namespace TopGunLab_Practice3.Controllers
         }
         public ActionResult Index()
         {
-            if (Session["products"]==null)
+            if (Session["products"] == null)
             {
-                Session["products"] = new List<Product> {
-                    new Product (){Name = "Milk", Quantity = "2 l"},
-                    new Product (){Name = "Tomatoes", Quantity = "5 kg"},
-                    new Product (){Name = "Grechka", Quantity = "400 g"}
-                    };
+                Session["products"] = new List<Product>();
             }
             return View(Session["products"]);
         }
@@ -33,15 +29,23 @@ namespace TopGunLab_Practice3.Controllers
             return View(product);
         }
 
-        private void Add(Product product)
+        [HttpGet]
+        public ActionResult Add()
         {
-            List<Product> products = (List<Product>)Session["products"];
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(Product product)
+        {
+            List<Product> products = Session["products"] as List<Product>;
             products.Add(product);
             Session["products"] = products;
+            return RedirectToAction("Index");
         }
         private Product GetById(int id)
         {
-            List<Product> products = (List<Product>)Session["products"];
+            List<Product> products = Session["products"] as List<Product>;
             Product product = products[id];
             return product;
         }

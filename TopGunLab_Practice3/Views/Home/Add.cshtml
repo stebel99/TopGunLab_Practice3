@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+}
+@model TopGunLab_Practice3.Models.Product
+@section Body
+    {
+    <div class="h1" style="font-family:'Segoe UI'; padding:5px">Add Product</div>
+    @using (Html.BeginForm("Add", "Home", FormMethod.Post))
+    {
+        <table class="table table-hover">
+            <tr>
+                <th scope="row" class="bg-success" style="width:100px"><p>Name</p></th>
+                <td><input type="text" name="Name" /> </td>
+            </tr>
+            <tr>
+                <th scope="row" class="bg-success"><p>Quantity</p></th>
+                <td><input type="text" name="Quantity" /> </td>
+            </tr>
+        </table>
+        <input class="btn btn-success" type="submit" value="Add" />
+    }
+}
+}
+
+
