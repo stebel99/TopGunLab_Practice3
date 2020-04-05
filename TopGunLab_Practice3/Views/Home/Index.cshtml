@@ -7,7 +7,7 @@
     <table class="table table-hover" style="width:600px">
         <thead class="bg-info">
             <tr>
-                <th scope="col" class="bg-primary" >#</th>
+                <th scope="col" class="bg-primary" style="width:20px">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Action</th>
             </tr>
@@ -16,10 +16,31 @@
             @for (int i = 0; i < Model.Count(); i++)
             {
                 <tr>
-                    <th scope="row" class="bg-info" style="width:20px">@(i + 1)</th>
+                    <th scope="row" class="bg-info">@(i + 1)</th>
                     <th>@Model[i].Name</th>
                     <th>
                         @Html.ActionLink("Details", "Details", "Home", new { id = i }, new { @class = "btn btn-info" })
+                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                data-target="#@Html.DisplayName("modal" + i)">
+                            Remove
+                        </button>
+                        <div id="@Html.DisplayName("modal" + i)" class="modal fade" role="dialog" data-toggle="modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class=" modal-body">
+                                        @Html.Partial("_Remove", new { Name = Model[i].Name})
+                                    </div>
+                                    <div class="modal-footer">
+                                        @Html.ActionLink("Remove", "Remove", "Home", new { id = i }, new { @class = "btn btn-danger" })
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*@Html.ActionLink("Remove", "Remove", "Home", new { id = i }, new { @class = "btn btn-danger" })*@
+                        @*@Html.Partial("_Remove", Model[i])*@
                     </th>
                 </tr>
             }

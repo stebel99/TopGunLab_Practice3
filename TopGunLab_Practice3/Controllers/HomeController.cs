@@ -35,6 +35,15 @@ namespace TopGunLab_Practice3.Controllers
             return View();
         }
 
+        public ActionResult Remove(int id)
+        {
+            ViewBag.ID = id;
+            Product product = GetById(id);
+            List<Product> products = Session["products"] as List<Product>;
+            products.Remove(product);
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public ActionResult Add(Product product)
         {
