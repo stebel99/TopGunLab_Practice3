@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TopGunLab_Practice3.Models;
 
@@ -9,10 +7,6 @@ namespace TopGunLab_Practice3.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
-        {
-
-        }
         public ActionResult Index()
         {
             if (Session["products"] == null)
@@ -24,8 +18,14 @@ namespace TopGunLab_Practice3.Controllers
 
         public ActionResult Details(int id)
         {
-            Product product = GetById(id);
-            return View(product);
+            List<Product> products = Session["products"] as List<Product>;
+            if (products.Count() <= id)
+            {
+                return RedirectToAction("PageNotFound", "Error");
+            }
+            return products.Any(x => x == products[id])
+                ? View(products[id])
+                : (ActionResult)RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -38,6 +38,10 @@ namespace TopGunLab_Practice3.Controllers
         {
             Session["ID"] = id;
             List<Product> products = Session["products"] as List<Product>;
+            if (products.Count() <= id)
+            {
+                return RedirectToAction("PageNotFound", "Error");
+            }
             return products.Any(x => x == products[id])
                 ? View(products.First(x => x == products[id]))
                 : (ActionResult)RedirectToAction("Index");
@@ -75,6 +79,7 @@ namespace TopGunLab_Practice3.Controllers
             return RedirectToAction("Index");
         }
 
+        [HandleError]
         private Product GetById(int id)
         {
             List<Product> products = Session["products"] as List<Product>;
