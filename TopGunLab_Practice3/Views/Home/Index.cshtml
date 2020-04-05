@@ -20,15 +20,24 @@
                     <th>@Model[i].Name</th>
                     <th>
                         @Html.ActionLink("Details", "Details", "Home", new { id = i }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Edit", "Edit", "Home", new { id = i }, new { @class = "btn btn-primary" })
                         <button type="button" class="btn btn-danger" data-toggle="modal"
                                 data-target="#@Html.DisplayName("modal" + i)">
                             Remove
                         </button>
+
+
+
+
+
+
+
+
                         <div id="@Html.DisplayName("modal" + i)" class="modal fade" role="dialog" data-toggle="modal">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class=" modal-body">
-                                        @Html.Partial("_Remove", new { Name = Model[i].Name})
+                                        @Html.Partial("_Remove", new { Name = Model[i].Name })
                                     </div>
                                     <div class="modal-footer">
                                         @Html.ActionLink("Remove", "Remove", "Home", new { id = i }, new { @class = "btn btn-danger" })
@@ -39,8 +48,6 @@
                                 </div>
                             </div>
                         </div>
-                        @*@Html.ActionLink("Remove", "Remove", "Home", new { id = i }, new { @class = "btn btn-danger" })*@
-                        @*@Html.Partial("_Remove", Model[i])*@
                     </th>
                 </tr>
             }

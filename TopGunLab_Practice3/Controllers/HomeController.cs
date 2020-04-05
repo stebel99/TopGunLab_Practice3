@@ -24,8 +24,7 @@ namespace TopGunLab_Practice3.Controllers
 
         public ActionResult Details(int id)
         {
-            int index = id;
-            Product product = GetById(index);
+            Product product = GetById(id);
             return View(product);
         }
 
@@ -33,6 +32,27 @@ namespace TopGunLab_Practice3.Controllers
         public ActionResult Add()
         {
             return View();
+        }
+
+        public ActionResult Edit(int id)
+        {
+            Session["ID"] = id;
+            List<Product> products = Session["products"] as List<Product>;
+            return products.Any(x => x == products[id])
+                ? View(products.First(x => x == products[id]))
+                : (ActionResult)RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            int id = (int)Session["ID"];
+            if (!ModelState.IsValid)
+                return View();
+            List<Product> products = Session["products"] as List<Product>;
+            products[id] = product;
+            Session["products"] = products;
+            return RedirectToAction("Index");
         }
 
         public ActionResult Remove(int id)
@@ -47,6 +67,8 @@ namespace TopGunLab_Practice3.Controllers
         [HttpPost]
         public ActionResult Add(Product product)
         {
+            if (!ModelState.IsValid)
+                return View();
             List<Product> products = Session["products"] as List<Product>;
             products.Add(product);
             Session["products"] = products;

@@ -1,19 +1,18 @@
-﻿
-@{
-    ViewBag.Title = "Add";
+﻿@{
+    ViewBag.Title = "Edit";
 }
 @model TopGunLab_Practice3.Models.Product
 @section Body
     {
     <div class="h1" style="font-family:'Segoe UI'; padding:5px">@ViewBag.Title</div>
-    @using (Html.BeginForm("Add", "Home", FormMethod.Post))
+    @using (Html.BeginForm("Edit", "Home", FormMethod.Post))
     {
         <table class="table table-hover">
             <tr>
                 <th scope="row" class="bg-success" style="width:100px"><p>Name</p></th>
                 <td>
                     @Html.TextBox("Name")
-                    @Html.ValidationMessage("Name",new { @style= "color:red" })
+                    @Html.ValidationMessage("Name", new { @style = "color:red" })
                 </td>
             </tr>
             <tr>
@@ -30,12 +29,11 @@
                 x => x.Type,
                 null,
                 new { @class = "form-control" })
-                            </td>
+                </td>
             </tr>
         </table>
-        <input class="btn btn-success" type="submit" value="Add" />
+        <input class="btn btn-success" type="submit" value="Edit" />
     }
 }
 }
-
 
